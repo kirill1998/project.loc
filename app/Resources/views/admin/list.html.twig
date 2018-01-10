@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+
+            <th><br>{% trans %}Name{% endtrans %}</th>
+            <th>Date of creating</th>
+            <th>Number of Players</th>
+            <th> Status</th>
+            <th></th>
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for quiz in blog_posts %}
+            <tr>
+
+                <td>
+
+
+
+                    {{ quiz.name|trans }}
+                </td>
+                <td>{{ quiz.date|date('Y.M.D') }}</td>
+                <td>{{ quiz.number_of_players }}<i class="fa fa-user-circle-o" aria-hidden="true"></i></td>
+
+                <td>
+                    {% if quiz.status %}
+                        <button data-status="notactive" class="btn btn-success status">active</button>
+
+                    {% else %}
+                        <button data-status="active" class="btn btn-danger status ">not active</button>
+
+
+                    {% endif %}
+                </td>
+                <td> <a href="{{ path('edit_quiz', {'id': quiz.id}) }}" ><button type="button" class="btn btn-xs btn-default">Update</button></a>
+                    <a href="{{ path('delete_quiz', {'id': quiz.id}) }}"><button type="button" class="btn btn-warning" >Delete quiz</button></a>
+                       </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class="navigation text-center">
+        {{ knp_pagination_render(blog_posts) }}
+    </div>
+    <a href="{{ path('admin') }}" >
+        <button class="btn btn-primary btn-lg btn-block" style="margin-top: 100px">Back to admin panel</button>
+    </a>
+
+{% endblock %}

@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="Hello">
+                <source>Hello</source>
+                <target>привет</target>
+            </trans-unit>
+            <trans-unit id="Octopus38">
+                <source>Octopus38</source>
+                <target>привет</target>
+            </trans-unit>
+            <trans-unit id="Name">
+                <source>Name</source>
+                <target>Название</target>
+            </trans-unit>
+            <trans-unit id="Logout">
+                <source>Logout</source>
+                <target>Выйти</target>
+            </trans-unit>
+            <trans-unit id="Login">
+                <source>Login</source>
+                <target>Войти</target>
+            </trans-unit>
+            <trans-unit id="Quizzes">
+            <source>Quizzes</source>
+            <target>Викторины</target>
+        </trans-unit><trans-unit id="Welcome">
+            <source>Welcome</source>
+            <target>Приветсвую</target>
+        </trans-unit><trans-unit id="guest">
+            <source>guest</source>
+            <target>гость</target>
+        </trans-unit>
+            <trans-unit id="Status/Name">
+                <source>quiz3</source>
+                <target>Викторина3</target>
+            </trans-unit>
+
+
+
+
+        </body>
+    </file>
+</xliff>

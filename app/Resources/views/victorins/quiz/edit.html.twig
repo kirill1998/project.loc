@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <h1>Edit Quiz</h1>
+            {{ form_start(quizForm) }}
+
+            {{ form_row(quizForm.name) }}
+
+            {{ form_row(quizForm.status, {
+                'label': 'Status of quiz',
+
+            }) }}
+
+           <p><button type="submit" class="btn btn-primary" formnovalidate>Save</button>
+               <a href="{{ path('edit_quiz_questions', {'id': id}) }}"><button type="button" class="btn " >Edit questions</button></a>
+
+           </p>
+            {{ form_end(quizForm) }}
+
+
+        </div>
+        <a href="{{ path('admin') }}" >
+            <button class="btn btn-primary btn-lg btn-block" style="margin-top: 100px">Back to admin panel</button>
+        </a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>{% block title %}Quizzes{% endblock %}</title>
+
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/select2-bootstrap.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/select2.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/new_styles.css') }}">
+            <link rel="stylesheet" href="{{ asset('vendor/fontawesome/css/font-awesome.min.css') }}">
+        {% endblock %}
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js" defer></script>
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <script src="{{ asset('jquery-3.2.1.min.js') }}"></script>
+
+        <script src="//code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+        <script src="{{ asset('bundles/pugxautocompleter/js/autocompleter-jqueryui.js') }}"></script>
+        <script src="{{ asset('js/app.js') }}"></script>
+        <link href="{{ asset('bundles/lifotypeahead/css/typeaheadbundle.css') }}" type="text/css" rel="stylesheet" />
+        <script src="{{ asset('bundles/lifotypeahead/js/bootstrap-typeahead.js') }}"></script>
+        <script src="{{ asset('bundles/lifotypeahead/js/typeaheadbundle.js') }}"></script>
+        <script src="{{ asset('bundles/tetranzselect2entity/js/select2entity.js') }}"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    </head>
+    <body>
+        <div class="search-bar">
+            <form method="GET" action="" class="js-sea-search sea-search">
+                <input type="search" name="q" placeholder="Search Sea Creatures" autocomplete="off" class="search-input">
+            </form>
+        </div>
+        <header class="header">
+            <img class="logo-icon" src="{{ asset('images/logo.png') }}">
+            <h1 class="logo">{% trans  %}Quizzes{% endtrans %}</h1>
+            <div class="col-md-8 col-sm-6 col-xs-2">
+                <div class="main-menu">
+
+                        {{ knp_menu_render('AppBundle:Builder:mainMenu') }}
+
+
+                </div>
+                <!-- /.main-menu -->
+            </div>
+            <ul class="navi">
+                {% if is_granted('ROLE_ADMIN') %}
+                <li><a href="{{ path('admin') }}">{% trans  %}Admin panel{% endtrans %}</a></li>
+                {% endif %}
+                {% if is_granted('ROLE_USER') %}
+                    <li><a href="{{ path('security_logout') }}">{% trans  %}Logout{% endtrans %}</a></li>
+                {% else %}
+                    <li><a href="{{ path('security_login') }}">{% trans  %}Login{% endtrans %}</a></li>
+                {% endif %}
+            </ul>
+        </header>
+
+        <div class="main-content">
+            {% for msg in app.session.flashBag.get('success') %}
+                <div class="alert alert-success">
+                    {{ msg }}
+                </div>
+            {% endfor %}
+            {% block body %}{% endblock %}
+        </div>
+
+        <div class="footer">
+            <p class="footer-text">  <img class="footer-logo" src="{{ asset('images/logo.png') }} " style=" width: 300px;
+        height: 250px;"> </p>
+        </div>
+
+        {% block javascripts %}
+
+            <script src="{{ asset('js/main.js') }}"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+            <script src="{{ asset('bundles/tetranzselect2entity/js/select2entity.js') }}"></script>
+            <script src="{{ asset('js/select2.js') }}"></script>
+
+
+        {% endblock %}
+    </body>
+</html>
+`

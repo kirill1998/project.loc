@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    {{ form_start(genusForm) }}
+    {{ form_row(genusForm.name) }}
+    {{ form_row(genusForm.owner, { attr: { placeholder: 'Search for user ...'}, widget_addon: {type: 'append', 'icon': 'user'}}) }}
+    {{ form_row(genusForm.users, { attr: { placeholder: 'Add another user ...'}, widget_addon: {type: 'append', 'icon': 'user'}}) }}
+    {{ form_end(genusForm) }}
+
+
+{% endblock %}

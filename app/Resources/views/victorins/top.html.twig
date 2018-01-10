@@ -1,0 +1,23 @@
+{% extends 'base.html.twig'%}
+{% block body %}
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>№</th>
+            <th>User </th>
+            <th>Number of right questions</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in data %}
+            <tr>
+                <td>{{ user['id'] }}</td>
+                <td>{{ user['email'] }}</td>
+                <td>{{ user['rightAnswers'] }}</td>
+
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

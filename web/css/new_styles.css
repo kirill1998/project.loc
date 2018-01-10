@@ -1,0 +1,32 @@
+.main-menu {
+    text-align: right;
+    float: right;
+}
+
+.main-menu ul li {
+    display: inline-block;
+    float: left;
+    padding-left: 25px;
+    padding-right: 25px;
+
+}
+
+.main-menu ul li a {
+    display: block;
+    text-transform: uppercase;
+    font-size: 18px;
+    color: #0c1722;
+    line-height: 100px;
+}
+
+.main-menu ul li a:hover {
+    color: #9ed034;
+}
+
+.main-menu ul li.active {
+    background: #9ed034;
+}
+
+.main-menu ul li.active a {
+    color: #fff;
+}

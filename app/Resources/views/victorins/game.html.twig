@@ -1,0 +1,99 @@
+{% extends'base.html.twig' %}
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-10" style="border: solid lightgray 3px; border-radius: 20px; margin: 50px; padding: 25px">
+            {% for msg in app.session.flashBag.get('success') %}
+                <div class="alert alert-success">
+                    {{ msg }}
+                </div>
+            {% endfor %}
+            <div id="ajax-results"></div>
+<button type="button" class="btn btn-info"> Name of quiz: {{ quiz.name}} ({{ quiz.date|date('d/m/y') }})</button>
+
+             <button type="button" class="btn btn-default" id="progress"></button>
+
+
+                {% for  question in questions %}
+
+                <form class="form-horizontal" role="form" id="question_form"  >
+                    <div class="question" style="display: none">
+                    <h3>Question:</h3>
+                     <p>{{ question}}</p>
+                        <p>
+                        <h3>Answers:</h3>
+                    {% for value in answers[question] %}
+                    <input type="radio" name="option" value="{{ value.text }}" >{{ value.text }}
+                    {% endfor %}
+                     </p>
+                    </div>
+                {% endfor %}
+
+                <button id="next" type="submit" class="btn ">Next</button>
+
+
+
+        </form>
+        <div id="success"></div>
+         <a href="{{ path('quizzes_list') }}" >
+                <button class="btn btn-primary btn-lg btn-block" style="margin-top: 100px">Back</button>
+            </a>
+    </div>
+    <script>
+        var i={{ i }}, j={{ i }};
+        var questions=document.querySelectorAll(".question");
+         var progress=document.querySelector("#progress");
+        var quizLength= questions.length;
+        progress.innerHTML="your progress:"+i+'/'+quizLength;
+        questions[i].style.display='block';
+        var next= document.querySelector("#next");
+
+        next.onclick= function () {
+            j++;
+
+            if(i>=questions.length-1) {
+               next.style.display='none';
+               document.querySelector("#success").innerHTML="<a href=\"{{ path('quizzes_top', {'id': quiz.id}) }}\">Quiz is done, look Top</a>"
+            }
+            questions[i].style.display='none';
+              i++;
+              progress.innerHTML="your progress:"+(i)+'/'+quizLength;
+
+              questions[i].style.display='block';
+
+
+        };
+
+        $("#question_form").submit(function () {
+            var str= $(this).serialize()+'&'+j;
+            $.ajax({
+                url:'{{ path('play_quiz', {'id': quiz.id}) }}',
+                type: "POST",
+                dataType: "json",
+                data: str,
+                async: true,
+                success: function (data)
+                {
+
+                    $("#ajax-results").html("Your answer is "+data);
+
+                }
+            });
+            return false;
+
+        });
+
+
+
+
+    </script>
+
+{% endblock %}
+ {% block javascripts %}
+
+
+     <script src="{{ asset('js/game.js') }}"></script>
+
+
+
+ {% endblock %}

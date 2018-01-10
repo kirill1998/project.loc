@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+     {% set  guest= 'guest'|trans  %}
+    <h1 class="page-header text-center">
+      {% trans %}Welcome{% endtrans %}
+        {{ app.user ? app.user.email : guest }}!
+    </h1>
+
+{% endblock %}

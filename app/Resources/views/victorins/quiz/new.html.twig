@@ -1,0 +1,70 @@
+
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-8">
+                <form class="form-horizontal" role="form" id="quizForm"  >
+                    <div class="form-group">
+                    <p><label for="name">Name of Quiz</label></p>
+                    <input type="text" name="name" id="name" class="form-control">
+                    </div>
+                    <div class="form-group">
+                    <label for="status">Status</label>
+                    <select name="status" id="status" placeholder="Select an option " class="form-control">
+                        <option value="1">active</option>
+                        <option value="0">not active</option>
+                    </select>
+                    </div>
+
+                <label for="autocompleteForm">Select a list of questions</label>
+                <select name='questions' id='autocompleteForm' class="js-example-data-array"  multiple="multiple" style="width: 75%"> </select>
+                    <p><button id="quizFormSubmit" type="submit" class="btn btn-success" formnovalidate style="margin-top: 25px">Save</button></p>
+
+                </form>
+
+
+                <script>
+                    var data= [];
+                    {% for d  in data %}
+                    data.push(
+                        {id: {{ d.id }},  text: '{{ d.text }}'
+
+                        });
+                    {% endfor  %}
+
+                    $(".js-example-data-array").select2({
+                        placeholder: 'Select an option',
+                        data: data
+                    });
+
+                    $("#quizForm").submit(function () {
+                        var str= $(this).serialize();
+                        $.ajax({
+                            url:'{{ path('add_quiz') }}',
+                            type: "POST",
+                            dataType: "json",
+                            data: str,
+                            async: true,
+                            success: function (data)
+                            {
+                                var result=JSON.parse(data);
+                                if(result==="ok")
+                                    window.location="{{ path('admin') }}";
+
+
+                            }
+                        });
+                        return false;
+
+                    });
+                </script>
+
+            </div>
+            <a href="{{ path('quizzes_list') }}" >
+                <button class="btn btn-primary btn-lg btn-block" style="margin-top: 100px">Back </button>
+            </a>
+        </div>
+    </div>
+{% endblock %}

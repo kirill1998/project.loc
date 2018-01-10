@@ -1,0 +1,74 @@
+
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container" style="margin-top: 25px">
+        <div class="row">
+            <div class="col-xs-8">
+                <form id="questionForm" class="" role="form"   >
+                    <div class="form-group">
+                    <p><label for="name">Name of question</label></p>
+                    <input type="text" name="name" id="name" class="form-control">
+                    </div>
+                   <h4>Answers </h4>
+                    <div id="variants">
+                        <div class="form-group form-inline">
+
+                        <input type="radio"   name="right" value="0" checked>
+                        <input type="text" name="answer0" class="form-control" >
+
+                        </div>
+                        <div class="form-group form-inline">
+                            <input type="radio"  name="right" value="1" >
+                            <input type="text" name="answer1" class="form-control">
+                        </div>
+                    </div >
+
+
+
+
+                   <i class="fa fa-plus-square fa-3x"  id="add" aria-hidden="true"></i>
+
+                  <p> <button  type="submit" class="btn btn-success" formnovalidate>Save</button></p>
+                </form>
+
+            </div>
+            <a href="{{ path('admin') }}" >
+                <button class="btn btn-primary btn-lg btn-block" style="margin-top: 100px">Back to admin panel</button>
+            </a>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script charset="utf-8">
+        var i=2;
+        $('#add').click(function () {
+            $('#variants').append('<div class="form-group form-inline">\n' +
+                '                        <input type="radio"  name="right" value="'+i+'">\n' +
+                '                        <input type="text" name="answer'+(i) +'"class="form-control" ></div>')
+        i++;
+        });
+        $("#questionForm").submit(function () {
+            var str= $(this).serialize();
+
+
+
+            $.ajax({
+                url:'{{ path('add_question') }}',
+                type: "POST",
+                dataType: "json",
+                data: str,
+                async: true,
+                success: function (data)
+                {
+                    var res= JSON.parse(data);
+
+                     if(res=='ok')
+                       window.location="{{ path('admin') }}";
+                }
+            });
+            return false;
+
+        });
+    </script>
+{% endblock %}
